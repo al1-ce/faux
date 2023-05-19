@@ -1,32 +1,39 @@
-name "sily-raylib"
-description "Personal wrapper for raylib-d"
+/**
+THIS IS NOT A FINISHED ECOSYSTEM
+
+Some of dependencies will contain paths instead of versions.
+These paths represent master branches of those packages.
+ */
+
+name "raylight"
+description "Game Engine for D"
 authors "Alisa Lain"
 copyright "Copyright © 2023, Alisa Lain"
-license "MIT"
+license "GPL-3.0"
 
 dependency "sily" path="/g/sily-dlang/" platform="posix" // version="~>2.1.0"
 dependency "sily:sdlang" path="/g/sily-dlang/" platform="posix" // version="~>2.1.0"
+
 dependency "sily-terminal:logger" path="/g/sily-terminal/" platform="posix" // version="~>2.1.0"
-dependency "sily-gamelib:bindbc" path="/g/sily-gamelib" platform="posix"
-// dependency "sily-gamelib:opengl" path="/g/sily-gamelib" platform="posix"
-dependency "sily-gamelib:sdl" path="/g/sily-gamelib" platform="posix"
+
+dependency "sily-gamelib:bindbc" path="/g/sily-gamelib" platform="posix" // version="~>1.0.0"
+dependency "sily-gamelib:opengl" path="/g/sily-gamelib" platform="posix" // version="~>1.0.0"
+dependency "sily-gamelib:sdl" path="/g/sily-gamelib" platform="posix" // version="~>1.0.0"
 
 // dependency "sily" path="/g:/sily-dlang/" platform="windows" // version="~>2.1.0"
 // dependency "sily:sdlang" path="/g:/sily-dlang/" platform="windows" // version="~>2.1.0"
 // dependency "sily-terminal:logger" path="/g:/sily-terminal/" platform="windows" // version="~>2.1.0"
-// dependency "sily-gamelib:bindbc" path="/g:/sily-gamelib" platform="windows"
-// // dependency "sily-gamelib:opengl" path="/g:/sily-gamelib" platform="windows"
-// dependency "sily-gamelib:sdl" path="/g:/sily-gamelib" platform="windows"
+// dependency "sily-gamelib:bindbc" path="/g:/sily-gamelib" platform="windows" // version="~>1.0.0"
+// dependency "sily-gamelib:opengl" path="/g:/sily-gamelib" platform="windows" // version="~>1.0.0"
+// dependency "sily-gamelib:sdl" path="/g:/sily-gamelib" platform="windows" // version="~>1.0.0"
 
-dependency "raylib-d" version="~>4.5.1"
-
-libs "raylib"
-sourcePaths "raylib/"
-importPaths "raylib/"
+sourcePaths "raylight/"
+importPaths "raylight/"
 
 targetType "library"
 targetPath "bin/"
 
+versions "SDL_2_26"
 versions "GL_33" "GL_ARB"
 
 
