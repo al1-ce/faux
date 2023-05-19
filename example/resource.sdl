@@ -3,7 +3,7 @@ Example SDLang format, base language is https://sdlang.org/
 This file will cover most of what can be expected in sdl resource.
 
 Also this file is a self-documentation of features that will be
-present in custom resource parser for sily-raylib.
+present in custom resource parser for raylight.
 
 Although it might seem so, this file is not a valid resource itself
  */
