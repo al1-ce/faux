@@ -41,7 +41,7 @@ res:local "resource_id" type="type" {
 // and they will be marked with local=true
 res:external "external_res" type="type" path="res://path/to/resource" local=true
 
-// TODO: go gameobjects need types?
+// TODO: do gameobjects need types?
 // If resource is a scene then it can have gameobjects attached to it
 res:node "name" type="type" parent="parent/path" {
     // It can have any components (taken name)
