@@ -1,16 +1,43 @@
 /// Mouse input
 module raylight.input.mouse;
 
-import rl = raylib;
+import raylight.input.event;
 
-import sily.vector;
+public import raylight.lib.sdl.input.mouse: MouseButton;
 
-import raylight.raytype;
+alias mouseMotion = getMouseRelativeMotion;
 
-/// Returns mouse position in window
-ivec2 mousePosition() {
-    return cast(ivec2) rl.GetMousePosition().rayType;
+alias mousePosition = getMouseWindowPosition;
+
+bool mouseButtonPressed(MouseButton p_key){ 
+    return getMouseButtonState(p_key) == KeyState.pressed;
 }
+
+bool mouseButtonDown(MouseButton p_key){ 
+    return getMouseButtonState(p_key) == KeyState.pressed ||
+           getMouseButtonState(p_key) == KeyState.down;
+}
+
+bool mouseButtonReleased(MouseButton p_key){ 
+    return getMouseButtonState(p_key) == KeyState.released;
+}
+
+bool mouseButtonUp(MouseButton p_key){ 
+    return getMouseButtonState(p_key) == KeyState.released ||
+           getMouseButtonState(p_key) == KeyState.up;
+}
+
+//
+// import rl = raylib;
+//
+// import sily.vector;
+//
+// import raylight.raytype;
+//
+// /// Returns mouse position in window
+// ivec2 mousePosition() {
+//     return cast(ivec2) rl.GetMousePosition().rayType;
+// }
 
 // // Input-related functions: mouse
 // bool IsMouseButtonPressed(int button);                  // Check if a mouse button has been pressed once
