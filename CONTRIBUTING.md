@@ -1,12 +1,13 @@
 # Contributing Guidelines
 
-####  Bug reporting 
+#### Bug reporting 
 
 Open an issue at [GitHub issue tracker](https://github.com/artificial-studio/raylight/issues). Before doing that, ensure the bug was not already reported or fixed in `master` branch. Describe a problem and, if necessary, provide minimal code needed to reproduce it.
 
-Note that macOS compatibility issues are not considered bugs. Raylight uses OpenGL and doesn't support macOS where OpenGL is deprecated.
+<!-- Note that macOS compatibility issues are not considered bugs. Raylight uses OpenGL and doesn't support macOS where OpenGL is deprecated. -->
+<!-- TODO: add note about Vulkan macOS (Molten?) -->
 
-####  Bug fixing 
+#### Bug fixing 
 
 Open a new GitHub pull request with your patch. Provide a description of the problem and solution. Follow our [code style](#code-style-and-standards).
 
@@ -14,9 +15,12 @@ Open a new GitHub pull request with your patch. Provide a description of the pro
 
 New code should at least:
 * work under Windows and POSIX systems and provide platform-agnostic API
-* support x86 and x86_64 targets
-* use OpenGL 4.6 and GLSL 4.60 (core profile)
-* use [sily](https://github.com/al1-ce/sily-dlang) or it's sister-libraries for game math and some of I/O operations when possible. If there is no required operation please open an issue or create a pull request
+<!-- * support x86 and x86_64 targets -->
+* support x64 targets
+<!-- * use OpenGL 4.6 and GLSL 4.60 (core profile) -->
+* use [Vulkan](https://code.dlang.org/packages/erupted) as graphics API
+* use [SDL](https://code.dlang.org/packages/bindbc-sdl) as hardware API
+* use [sily](https://github.com/al1-ce/sily-dlang) or it's sister-libraries (i.e sily-terminal) for game math and some of I/O operations when possible. If there is no required operation please open an issue or create a pull request
 * follow our [code style](#code-style-and-standards)
 * not violate copyright/licensing. When adapting third-party code, make sure that it is compatible with [GNU GPL 3.0](https://www.gnu.org/licenses/gpl-3.0.en.html).
 
@@ -26,7 +30,7 @@ Adding new external dependencies should be avoided as much as possible.
 
 `master` branch is a development branch for the next release. When release is ready, `master` branch will be pushed into `release` branch and release will be made from it.
 
-####  Code style and standards 
+#### Code style and standards 
 
 Raylight mostly follows [D style](https://dlang.org/dstyle.html). Essential rules are the following:
 * Use spaces instead of tabs. Each indentation level is 4 spaces
@@ -37,15 +41,17 @@ Raylight mostly follows [D style](https://dlang.org/dstyle.html). Essential rule
 * Module names should be in lowercase
 * `if () else if ()` can be split as `if () else\n if ()`
 * If method or function is used as property parenthesis can be dropped
-* Prefer explicitly importing methods instead of importing whole module when only several methods from this module are needed
-* Imports are order separated by single space, first normal, then static and finally public:
+* Prefer explicitly importing methods instead of importing whole module when only several methods from this module are needed. Exception is when imported module declares only one thing (i.e vector and aliases for it)
+* Also prefer explicitly importing sub-modules. I.e `import std.algorithm.searching;` instead of `import std.algorithm;`
+* Imports are ordered separated by single space. First normal, then static and finally public:
     1. std
     2. core
     3. bindbc
-    4. sily
-    5. other libraries 
-    6. raylight
-* Declarations for structs and classes must be:
+    4. erupted
+    5. sily
+    6. other libraries 
+    7. raylight
+* Preferred order of declarations for classes or structs is:
     1. Public properties and one-line setters/getters
     2. Private properties
     3. Constructors
@@ -58,18 +64,36 @@ Raylight mostly follows [D style](https://dlang.org/dstyle.html). Essential rule
     - `t_` - for private/protected thread static properties (`private shared int t_staticInt`)
     - `_` - as postfix when name is a keyword (`bool bool_`)
 * Function signature preferred to be in order:
-    1. attributes
-    2. visibility (public, private...)
+    1. attributes (@property)
+    2. visibility (public, private...), `public` can be dropped since everything is default public
     3. isStatic (static)
     4. misc
     5. isOverride (override)
     6. type qualifiers and type (int, bool...)
     7. name and params
     8. attributes (const, nothrow, pure, @nogc, @safe)
+    9. i.e `@property private static override int myMethod(int* ptr) @safe @nogc nothrow {}`
 * Interfaces must be prefixed with `I`, i.e. `IEntity`
-* Always describe symbols with ddoc unless name is self-descriptive (for properties)
+* When declaring properties, methods, etc... visibility modifier can be dropped in favor of global visibility modifier, i.e `private:`. This type of declaration is valid but should be avoided since it's considered implicit
+    - Example:
+    ```
+    class MyClass {
+        public:
+        int myPublicInt;
+        string myPublicString;
+        
+        private:
+        int myPrivateInt;
 
-Example:
+        public:
+        int myPublicIntMethod() {}
+        ...
+    }
+    ```
+* Always describe symbols with ddoc unless name is self-descriptive (for properties)
+* **Avoid exceptions at all costs.** Prefer status return checks and if needed to return nullable use `std.typecons: Nullable;` or if needed to return multiple values consider putting then in custom struct
+
+Example of how a module would look like when adhering to those rules:
 ```d
 /++
 Custom raylight module.
@@ -83,7 +107,8 @@ import std.stdio: stdout, stdin, writeln;
 import core.stdc: FILE;
 
 import bindbc.sdl;
-import bindbc.opengl;
+
+import bindbc.erupted;
 
 import sily.vector;
 import sily.terminal: isatty;
