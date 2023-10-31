@@ -13,7 +13,7 @@ import sily.bindbc;
 import raylight.log;
 import raylight.lib.sdl.sdl;
 import raylight.lib.sdl.loader;
-import raylight.lib.opengl.opengl;
+// import raylight.lib.opengl.opengl;
 import raylight.lib.opengl.loader;
 import raylight.input.event;
 import raylight.core.display;
@@ -22,7 +22,7 @@ private int _winCounter = 0;
 private Window*[] _windows;
 
 alias WindowHandle = SDL_Window*;
-alias GlContext = SDL_GLContext;
+// alias GlContext = SDL_GLContext;
 
 /// Returns window that currently has an input grab (capture) enabled
 WindowHandle getGrabbedWindow() {
@@ -93,7 +93,7 @@ struct Window {
     private bool _cursorLocked = false;
 
     private WindowHandle _window;
-    private GlContext _context;
+    // private GlContext _context;
 
     /// Returns SDL window handle
     @property WindowHandle handle() { return _window; }
@@ -117,11 +117,11 @@ struct Window {
         newline();
         // logLine('=');
 
-        SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
-        SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 6);
-
-        SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
-        SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 4);
+        // SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
+        // SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 6);
+        //
+        // SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
+        // SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 4);
 
         _window = SDL_CreateWindow(
             title.toStringz,
@@ -140,11 +140,11 @@ struct Window {
             info!(L, F)("SDL Window ID:", _id, " created");
         }
 
-        _context = SDL_GL_CreateContext(_window);
+        // _context = SDL_GL_CreateContext(_window);
 
-        info!(L, F)("Loading OpenGL for Window ID:", _id);
+        // info!(L, F)("Loading OpenGL for Window ID:", _id);
         setBindBCLibPath("dll");
-        if (!loadLibraryOpenGL!(L, F)()) return false;
+        // if (!loadLibraryOpenGL!(L, F)()) return false;
         resetBindBCLibPath();
 
         info!(L, F)("Window ID:", _id, " successfully initialised");

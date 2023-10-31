@@ -18,7 +18,8 @@ dependency "sily:bindbc" path="/g/sily-dlang" platform="posix" // version="~>1.0
 dependency "sily-terminal:logger" path="/g/sily-terminal" platform="posix" // version="~>2.1.0"
 
 dependency "bindbc-sdl" version="~>1.4.2"
-dependency "bindbc-opengl" version="~>1.1.0"
+// dependency "bindbc-opengl" version="~>1.1.0"
+dependency "erupted" version="~>2.1.98"
 
 // dependency "sily-gamelib:opengl" path="/g/sily-gamelib" platform="posix" // version="~>1.0.0"
 // dependency "sily-gamelib:sdl" path="/g/sily-gamelib" platform="posix" // version="~>1.0.0"
@@ -39,6 +40,6 @@ targetPath "bin/"
 versions "SDL_2_26"
 versions "SDL_TTF_2018"
 versions "SDL_Image_205"
-versions "GL_46" "GL_ARB"
+// versions "GL_46" "GL_ARB"
 
 
