@@ -8,8 +8,8 @@ assignees: ''
 ---
 
 **Device info**
-- OS: [e.g. Linux x64 or Windows x86]
-- Raylight version: [e.g. v1.0.0]
+- OS: [e.g. Arch Linux x64 or Windows x86]
+- Faux version: [e.g. v1.0.0]
 
 **Describe the bug**
 A clear and concise description of what the bug is.

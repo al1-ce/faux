@@ -2,9 +2,9 @@
 
 #### Bug reporting 
 
-Open an issue at [GitHub issue tracker](https://github.com/artificial-studio/raylight/issues). Before doing that, ensure the bug was not already reported or fixed in `master` branch. Describe a problem and, if necessary, provide minimal code needed to reproduce it.
+Open an issue at [GitHub issue tracker](https://github.com/artificial-studio/faux/issues). Before doing that, ensure the bug was not already reported or fixed in `master` branch. Describe a problem and, if necessary, provide minimal code needed to reproduce it.
 
-<!-- Note that macOS compatibility issues are not considered bugs. Raylight uses OpenGL and doesn't support macOS where OpenGL is deprecated. -->
+<!-- Note that macOS compatibility issues are not considered bugs. Faux uses OpenGL and doesn't support macOS where OpenGL is deprecated. -->
 <!-- TODO: add note about Vulkan macOS (Molten?) -->
 
 #### Bug fixing 
@@ -20,7 +20,8 @@ New code should at least:
 <!-- * use OpenGL 4.6 and GLSL 4.60 (core profile) -->
 * use [Vulkan](https://code.dlang.org/packages/erupted) as graphics API
 * use [SDL](https://code.dlang.org/packages/bindbc-sdl) as hardware API
-* use [sily](https://github.com/al1-ce/sily-dlang) or it's sister-libraries (i.e sily-terminal) for game math and some of I/O operations when possible. If there is no required operation please open an issue or create a pull request
+* use [sily](https://github.com/al1-ce/sily) for game math and some of I/O operations when possible. If there is no required operation please open an issue or create a pull request
+* use [clib](https://github.com/al1-ce/clib) for nogc containers
 * follow our [code style](#code-style-and-standards)
 * not violate copyright/licensing. When adapting third-party code, make sure that it is compatible with [GNU GPL 3.0](https://www.gnu.org/licenses/gpl-3.0.en.html).
 
@@ -32,7 +33,7 @@ Adding new external dependencies should be avoided as much as possible.
 
 #### Code style and standards 
 
-Raylight mostly follows [D style](https://dlang.org/dstyle.html). Essential rules are the following:
+Faux mostly follows [D style](https://dlang.org/dstyle.html). Essential rules are the following:
 * Use spaces instead of tabs. Each indentation level is 4 spaces
 * There's always a space after control statements (`if`, `while`, `for`, etc...)
 * Opening curly bracket should be on a **same** line
@@ -43,14 +44,16 @@ Raylight mostly follows [D style](https://dlang.org/dstyle.html). Essential rule
 * If method or function is used as property parenthesis can be dropped
 * Prefer explicitly importing methods instead of importing whole module when only several methods from this module are needed. Exception is when imported module declares only one thing (i.e vector and aliases for it)
 * Also prefer explicitly importing sub-modules. I.e `import std.algorithm.searching;` instead of `import std.algorithm;`
+* If you're using library that Faux is using and it has import in format of `faux.LIBNAME.lib` prefer it over directly importing that library. I.e use `import faux.sdl.lib;` instead of `import bindbc.sdl`
 * Imports are ordered separated by single space. First normal, then static and finally public:
     1. std
     2. core
-    3. bindbc
-    4. erupted
+    3. faux.LIBNAME.lib (publicly imports LIBNAME)
+    4. faux.vk.lib (publicly imports Vulkan bindings with Erupted)
     5. sily
-    6. other libraries 
-    7. raylight
+    6. clib
+    7. other libraries 
+    8. faux
 * Preferred order of declarations for classes or structs is:
     1. Public properties and one-line setters/getters
     2. Private properties
@@ -91,30 +94,37 @@ Raylight mostly follows [D style](https://dlang.org/dstyle.html). Essential rule
     }
     ```
 * Always describe symbols with ddoc unless name is self-descriptive (for properties)
-* **Avoid exceptions at all costs.** Prefer status return checks and if needed to return nullable use `std.typecons: Nullable;` or if needed to return multiple values consider putting then in custom struct
+* **Avoid exceptions at all costs.** Prefer status return checks and if needed to return nullable use `std.typecons: Nullable;` or `clib.optional: optional;` or if needed to return multiple values consider putting then in custom struct
+* Include copyright line at top of source file or in `.reuse/dep5` for resource files or meta files
+* Copyright line is subject to change!
 
 Example of how a module would look like when adhering to those rules:
 ```d
+// SPDX-FileCopyrightText: (C) 2024 Faux Developers <aartificial.dev@gmail.com>
+// SPDX-FileCopyrightText: (C) 2024 Faux Contributors
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 /++
-Custom raylight module.
-Currently an example of style to use in raylight engine source
+Custom faux module.
+Currently an example of style to use in faux engine source
 code.
 +/
-module raylight.custom;
+module faux.custom;
 
 import std.stdio: stdout, stdin, writeln;
 
 import core.stdc: FILE;
 
-import bindbc.sdl;
-
-import bindbc.erupted;
+import faux.sdl.lib; // note: used instead of import bindbc.sdl;
+import faux.vk.lib; // note: used instead of import erupted;
 
 import sily.vector;
 import sily.terminal: isatty;
 
-import raylight.logger;
-import raylight.render.engine;
+import clib.optional;
+
+import faux.logger;
+import faux.render.engine;
 
 static import bindbc.loader;
 
@@ -138,7 +148,7 @@ enum CustomEnum {
     enumKey2
 }
 
-/// Structure to do custom things for raylight
+/// Structure to do custom things for faux
 struct CustomStruct {
     /// Is custom struct
     CustomEnum isCustom;

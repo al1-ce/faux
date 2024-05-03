@@ -3,10 +3,10 @@ Example SDLang format, base language is https://sdlang.org/
 This file will cover most of what can be expected in sdl resource.
 
 Also this file is a self-documentation of features that will be
-present in custom resource parser for raylight.
+present in custom resource parser for faux.
 
 Although it might seem so, this file is not a valid resource itself
- */
+*/
 
 // Resource can be either resource or scene
 /**
@@ -15,7 +15,7 @@ Scene must define a size
 
 Type must be valid resource type (Texture, File, Material, etc...)
 Size must be exact amount of resources in this file + 1
- */
+*/
 res:type "resource" size=3 uid="uid://8f8ccsa32"
 // TODO: possibly add UID for resources
 

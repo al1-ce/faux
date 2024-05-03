@@ -10,12 +10,40 @@ build:
 run:
     @cd /g/raytest && dub run
 
+reuse:
+    @reuse --suppress-deprecation lint
+
 test:
     #!/bin/bash
     >&2 echo "Error: Message"
     echo "Info: Message"
     >&2 echo "Error: Message 2"
     echo "Info: Message 2"
+
+# build: glsl_triangle
+#     dub build
+#
+# run:
+#     dub run
+#
+# leak:
+#     valgrind --leak-check=full bin/vulkan-test
+#
+# cloc:
+#     cloc . --include-lang=D --quiet
+#
+# alias glsl := glsl_all
+#
+# [private]
+# glsl_all: glsl_triangle
+#
+# glsl_triangle: (glslc "triangle.frag") (glslc "triangle.vert")
+#
+# glslc NAME:
+#     glslc res/shaders/{{NAME}} -o res/spiv/{{NAME}}.spv
+#
+# test NAME:
+#     dub run --single test/{{NAME}}.d
 
 # Cheatsheet:
 # Set a variable (variable case is arbitrary)

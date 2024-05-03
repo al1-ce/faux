@@ -1,25 +1,60 @@
-/**
-THIS IS NOT A FINISHED ECOSYSTEM
+// █▀▀ ▄▀█ █ █ ▀▄▀     █▀▀ █▀█ █▀▀  █  █▀█ █▀▀
+// █▀  █▀█ █▄█ █ █     ██▄ █ █ █▄█  █  █ █ ██▄
 
-Some of dependencies will contain paths instead of versions.
-These paths represent master branches of those packages.
- */
 
-name "raylight"
-description "Game Engine for D"
+// THIS IS NOT A FINISHED ECOSYSTEM
+// Some of dependencies will contain paths instead of versions.
+// These paths represent master or dev branches for those packages.
+
+    // DO NOT USE DUB CLI TO ADD OR CHANGE DEPENDENCES
+// edit this file manually to preserve comments and order
+
+name "faux"
+description "Game Framework for D"
 authors "Alisa Lain"
-copyright "Copyright © 2023, Alisa Lain"
+copyright "Copyright © 2024, Alisa Lain"
 license "GPL-3.0"
 
-dependency "sily" path="/g/sily-dlang" platform="posix" // version="~>2.1.0"
-dependency "sily:sdlang" path="/g/sily-dlang" platform="posix" // version="~>2.1.0"
-dependency "sily:bindbc" path="/g/sily-dlang" platform="posix" // version="~>1.0.0"
+// █▄▄ █ █  █  █   █▀▄     █▀▀ █▀█ █▀█ █▀▀  █  █▀▀
+// █▄█ █▄█  █  █▄▄ █▄▀     █▄▄ █▄█ █ █ █▀   █  █▄█
 
-dependency "sily-terminal:logger" path="/g/sily-terminal" platform="posix" // version="~>2.1.0"
+// lflags "$PACKAGE_DIR/lib/clibstb.a" platform="linux"
+// TODO: figure out compiling dll for windows
+// lflags "$PACKAGE_DIR/lib/clibstb.dll" platform="windows"
+
+sourcePaths "src/"
+importPaths "src/"
+
+targetType "library"
+targetPath "bin/"
+
+// █▀▄ █▀▀ █▀█ █▀▀ █▀█ █▀▄ █▀▀ █▀█ █▀▀ █▀▀ ██▀
+// █▄▀ ██▄ █▀▀ ██▄ █ █ █▄▀ ██▄ █ █ █▄▄ ██▄ ▄▄█
+
+dependency "sily" path="../sily-dlang" // version="~>2.1.0"
+dependency "sily:sdlang" path="/g/sily-dlang" platform="posix" // version="~>2.1.0"
 
 dependency "bindbc-sdl" version="~>1.4.2"
+dependency "erupted" version="~>2.1.98" // Vulkan bindings
+// For manual window creation
+// dependency "xlib-d" version="~>0.1.1" platform="posix" // for X11.Xlib extension
+// dependency "xcb-d" version="~>2.1.0" platform="posix" // for X11.Xcb extension
+// dependency "wayland:client" version="~>0.1.0" platform="posix" // for wayland extension
+// windows extensions don't require dependencies
+
+// ██▀ █▀▀ ▀█▀ ▀█▀  █  █▀█ █▀▀ ██▀
+// ▄▄█ ██▄  █   █   █  █ █ █▄█ ▄▄█
+
+versions "SDL_2_26"
+// versions "SDL_TTF_2018"
+// versions "SDL_Image_205"
+versions "SILY_CONFIG_OPENGL" // opengl-style matrices
+
+// █▀▄ █▀▀ █▀█ █▀█ █▀▀ █▀▀ ▄▀█ ▀█▀ █▀▀ █▀▄
+// █▄▀ ██▄ █▀▀ █▀▄ ██▄ █▄▄ █▀█  █  ██▄ █▄▀
+
+// dependency "sily-terminal:logger" path="/g/sily-terminal" platform="posix" // version="~>2.1.0"
 // dependency "bindbc-opengl" version="~>1.1.0"
-dependency "erupted" version="~>2.1.98"
 
 // dependency "sily-gamelib:opengl" path="/g/sily-gamelib" platform="posix" // version="~>1.0.0"
 // dependency "sily-gamelib:sdl" path="/g/sily-gamelib" platform="posix" // version="~>1.0.0"
@@ -31,15 +66,5 @@ dependency "erupted" version="~>2.1.98"
 // dependency "sily-gamelib:opengl" path="/g:/sily-gamelib" platform="windows" // version="~>1.0.0"
 // dependency "sily-gamelib:sdl" path="/g:/sily-gamelib" platform="windows" // version="~>1.0.0"
 
-sourcePaths "src/"
-importPaths "src/"
-
-targetType "library"
-targetPath "bin/"
-
-versions "SDL_2_26"
-versions "SDL_TTF_2018"
-versions "SDL_Image_205"
 // versions "GL_46" "GL_ARB"
-
 

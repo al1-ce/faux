@@ -1,0 +1,17 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: faux
+Upstream-Contact: Alisa Lain <al1-ce@null.net>
+Source: https://github.com/aartificial-dev/faux
+
+Files: example/*
+Copyright: (C) 2024 Faux Developers <aartificial.dev@gmail.com>, (C) 2024 Faux Contributors
+License: GPL-3.0-or-later
+
+Files: .github/* .dub/* dub.sdl .gitignore .pre-commit-config.yaml
+Copyright: (C) 2024 Faux Developers <aartificial.dev@gmail.com>, (C) 2024 Faux Contributors
+License: CC0-1.0
+
+Files: .todo.md AUTHORS.md CHANGEDLOG.md CONTRIBUTING.md README.md justfile
+Copyright: (C) 2024 Faux Developers <aartificial.dev@gmail.com>, (C) 2024 Faux Contributors
+License: CC0-1.0
+

@@ -1,0 +1,120 @@
+/**
+Possible idea based on some block game modding and vodka cheeky breeky modding
+
+Idk where to put this so I'm putting it here
+
+The whole idea is:
+    1. You can define item/npc/etc with SDL
+    2. Any define resource will be parsed to make thing work in game
+    3. Both of aformentioned games use system like that
+    4. Second aformentioned game uses something called LTX
+    5. LTX isn't really smart but Modded Execs expand it to DLTX
+    6. DLTX allows you to do smart interesting things with overrides
+    7. Allow modifying SDL files from another SDL files
+
+DLTX uses almost same syntax as LTX, but allows use of ! to override/delete sections
+
+Example:
+---
+[section]
+val1 = 1
+val2 = 2
+
+; Will inject whatever is defined in !section
+![section]
+; Now [section] will have val2 equal to 12 and val1 is unchanged
+val2 = 12
+
+; To delete value you use ! before value
+![section]
+; Now val2 doesn't exist
+!val2
+
+; And to delete section you use !!
+!![section]
+; Must also delete all values
+!val1
+---
+
+Now let's get into real pseudo-SDL code
+
+Required modifications to SDl parser:
+- Allow assuming properties equal to true,
+    i.e `resource "test" type="a" local {}` will assume that `local`
+    is a boolean equal to true
+
+- Allow parsing $, !, ~ and @ in beginning of tags
+
+- Allow parsing `a = b` same as `a = "b"`
+- Allow parsing `a = b:c` same as `a = "b:c"`
+- Possibly make them work same as namespaces or smt
+- Actually parse them as tags
+
+- Rename SDL to something else since it'd be modification and
+    isn't really SDL anymore, plus
+    SDL (simple declarative language) uses same abbreviation to
+    SDL (simple directmedia layer)
+- Ideas:
+    - keep it SDL
+    - sdf - Simple Data Format
+    - ldf - L???(Lazy Language List) Data Format
+    - lsf - L??? Serialization Format
+    - lsc - Language SCript
+    - sfl - Scripting Format Language
+    - lpk - Language PacKage
+    - lst - Language ScripT
+- Ok, decision, keep it SDL coz I can't come up with anything
+    good at all. Also it'll still read normal SDL files since
+    I'm not changing any features, but only adding new ones
+- Maybe
+*/
+
+// First we start with normal definition
+medkit type="item" {
+    size 0.2 1 3
+    // Oh no, it's wrong directory
+    model "modelZ/medkit.obj"
+    texture "texture/medkit.png"
+    material "material/medkit.mtl"
+    pointlessProp "i am prop"
+}
+
+// Duplicating it will override entire thing
+
+// Now we want to change this medkit thing
+// Possible options
+$medkit {}
+@medkit {}
+!medkit {}
+~medkit {}
+medkit override {}
+override:medkit {}
+
+// Let's roll with this for now
+override:medkit {
+    // And here we fix the model
+    model "model/medkit.obj"
+}
+!medkit {
+    model "model/medkit.obj"
+}
+
+// We could also do in same style
+delete:medkit
+// Not sure on this delete style
+!medkit delete
+
+// Or
+override:medkit {
+    delete:pointlessProp
+}
+
+!medkit {
+    !pointlessProp delete
+}
+
+// Maybe also allow inheritance
+armor inherit=medkit
+// medkit:armor {} // gotta think on this one
+armor inherit=namespace:medkit override type="item" {}
+

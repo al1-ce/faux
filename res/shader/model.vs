@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: (C) 2024 Faux Developers <aartificial.dev@gmail.com>
+// SPDX-FileCopyrightText: (C) 2024 Faux Contributors
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #version 460
 layout (location = 0) in vec3 aPos;
 layout (location = 1) in vec3 aColor;
