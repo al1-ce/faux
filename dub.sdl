@@ -31,8 +31,8 @@ targetPath "bin/"
 // █▀▄ █▀▀ █▀█ █▀▀ █▀█ █▀▄ █▀▀ █▀█ █▀▀ █▀▀ ██▀
 // █▄▀ ██▄ █▀▀ ██▄ █ █ █▄▀ ██▄ █ █ █▄▄ ██▄ ▄▄█
 
-dependency "sily" path="../sily-dlang" // version="~>2.1.0"
-dependency "sily:sdlang" path="/g/sily-dlang" platform="posix" // version="~>2.1.0"
+dependency "sily" path="../sily" // version="~>2.1.0"
+dependency "sily:sdl" path="../sily" platform="posix" // version="~>2.1.0"
 
 dependency "bindbc-sdl" version="~>1.4.2"
 dependency "erupted" version="~>2.1.98" // Vulkan bindings
