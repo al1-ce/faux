@@ -34,8 +34,8 @@ targetPath "bin/"
 dependency "sily" path="../sily" // version="~>2.1.0"
 dependency "sily:sdl" path="../sily" platform="posix" // version="~>2.1.0"
 
-dependency "bindbc-sdl" version="~>1.4.2"
-dependency "erupted" version="~>2.1.98" // Vulkan bindings
+dependency "bindbc-sdl" version="~>2.0"
+dependency "erupted" version="~>2.1" // Vulkan bindings
 // For manual window creation
 // dependency "xlib-d" version="~>0.1.1" platform="posix" // for X11.Xlib extension
 // dependency "xcb-d" version="~>2.1.0" platform="posix" // for X11.Xcb extension
@@ -45,10 +45,14 @@ dependency "erupted" version="~>2.1.98" // Vulkan bindings
 // ██▀ █▀▀ ▀█▀ ▀█▀  █  █▀█ █▀▀ ██▀
 // ▄▄█ ██▄  █   █   █  █ █ █▄█ ▄▄█
 
-versions "SDL_2_26"
+versions "SDL_3_4"
 // versions "SDL_TTF_2018"
 // versions "SDL_Image_205"
 versions "SILY_CONFIG_OPENGL" // opengl-style matrices
+
+subConfiguration "bindbc-sdl" "staticBC"
+
+libs "SDL3"
 
 // █▀▄ █▀▀ █▀█ █▀█ █▀▀ █▀▀ ▄▀█ ▀█▀ █▀▀ █▀▄
 // █▄▀ ██▄ █▀▀ █▀▄ ██▄ █▄▄ █▀█  █  ██▄ █▄▀
